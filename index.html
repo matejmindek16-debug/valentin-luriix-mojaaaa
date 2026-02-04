@@ -9,22 +9,22 @@
         body { 
             background-color: #ffe6e6; 
             text-align: center; 
-            /* Použitie nového písma 'Pacifico' */
             font-family: 'Pacifico', cursive; 
             overflow: hidden; 
         }
         .container, .heart { display: none; }
         h1 { color: #d63384; font-size: 3rem; }
-        h2 { font-size: 1.8rem; } /* Zväčšil som písmo pre číslo */
+        h2 { font-size: 1.8rem; } 
         .main-img { width: 300px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .buttons { margin-top: 30px; position: relative; height: 100px; }
         button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border-radius: 10px; border: none; transition: 0.3s; }
         #yesBtn { background-color: #ff4d4d; color: white; }
         #noBtn { background-color: #ccc; cursor: not-allowed; position: static; } 
         
-        @keyframes float { 
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.8; } 
-            100% { transform: translate(var(--end-x), -100vh) scale(1.5) rotate(720deg); opacity: 0; } 
+        /* Nová animácia: padanie zhora nadol */
+        @keyframes fall { 
+            0% { transform: translateY(-10vh) scale(1); opacity: 0.9; } 
+            100% { transform: translateY(110vh) scale(1.5); opacity: 0; } 
         }
         
         .glowing-number {
@@ -69,7 +69,7 @@
                 document.getElementById('password-prompt').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 document.body.style.overflow = 'auto'; 
-                setInterval(createHeart, 100);
+                setInterval(createHeart, 100); // Generujeme srdiečka častejšie
             } else {
                 alert('Nesprávne heslo. Skús to znova.');
             }
@@ -81,19 +81,20 @@
             document.body.innerHTML = '<h1>Jupiii! ❤️🔥🐮</h1><h2>Zavolaj mi na číslo: <a href="tel:' + callLinkNumber + '" class="glowing-number">' + displayPhoneNumber + '</a></h2><p style="font-size:50px;">🌹🌹🌹</p>';
         }
 
+        // Upravená funkcia na vytváranie srdiečok, ktoré padajú po celej šírke
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '❤️';
-            const startX = Math.random() * window.innerWidth;
-            const endX = (Math.random() - 0.5) * window.innerWidth * 0.5; 
-            heart.style.left = startX + 'px';
+            // Náhodná štartovacia pozícia po celej šírke obrazovky
+            heart.style.left = Math.random() * 100 + 'vw'; 
             heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-            heart.style.animationDuration = Math.random() * 3 + 3 + 's'; 
-            heart.style.setProperty('--end-x', endX + 'px'); 
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's'; // Náhodná rýchlosť padania
+            heart.style.animationName = 'fall'; // Použijeme novú animáciu 'fall'
+
             document.body.appendChild(heart);
             heart.style.display = 'block'; 
-            setTimeout(() => heart.remove(), (parseFloat(heart.style.animationDuration) || 6) * 1000);
+            setTimeout(() => heart.remove(), (parseFloat(heart.style.animationDuration) || 10) * 1000);
         }
     </script>
 </body>
