@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>Budeš môj Valentín?</title>
+    <style>
+        body { background-color: #ffe6e6; text-align: center; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .container, .heart { display: none; }
+        h1 { color: #d63384; font-size: 3rem; }
+        .main-img { width: 300px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .buttons { margin-top: 30px; position: relative; height: 100px; }
+        button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border-radius: 10px; border: none; transition: 0.3s; }
+        #yesBtn { background-color: #ff4d4d; color: white; }
+        #noBtn { background-color: #ccc; cursor: not-allowed; position: static; } 
+        @keyframes float { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5); opacity: 0; } }
+        
+        .glowing-number {
+            color: #ff4d4d;
+            text-decoration: none;
+            text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d, 0 0 30px #ff4d4d;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+          from { text-shadow: 0 0 10px #ff4d4d; }
+          to { text-shadow: 0 0 20px #ff4d4d, 0 0 30px #ff4d4d, 0 0 40px #ff4d4d; }
+        }
+
+        #password-prompt { padding: 50px; margin-top: 100px; }
+        #password-input { padding: 10px; font-size: 1rem; }
+        #password-button { padding: 10px 20px; font-size: 1rem; background-color: #d63384; color: white; border: none; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+    <div id="password-prompt">
+        <h2>Prosím, zadaj heslo:</h2>
+        <input type="password" id="password-input" placeholder="Heslo">
+        <button id="password-button" onclick="checkPassword()">Odomknúť</button>
+    </div>
+
+    <div class="container" id="main-content">
+        <h1>Budeš môj Valentín? 💖</h1>
+        <img src="kravicka.png" class="main-img" alt="Kravička s horiacim srdcom">
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">ÁNO!</button>
+            <button id="noBtn" disabled>NIE</button>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            const correctPassword = 'lubimta'; // Tvoje heslo
+            if (input === correctPassword) {
+                document.getElementById('password-prompt').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.body.style.overflow = 'auto'; 
+                setInterval(createHeart, 300);
+            } else {
+                alert('Nesprávne heslo. Skús to znova.');
+            }
+        }
+
+        function celebrate() {
+            const displayPhoneNumber = '0949 088 844'; 
+            const callLinkNumber = '0949088844';
+            document.body.innerHTML = '<h1>Jupiii! ❤️🔥🐮</h1><h2>Zavolaj mi na číslo: <a href="tel:' + callLinkNumber + '" class="glowing-number">' + displayPhoneNumber + '</a></h2><p style="font-size:50px;">🌹🌹🌹</p>';
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            document.body.appendChild(heart);
+            heart.style.display = 'block'; 
+            setTimeout(() => heart.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
