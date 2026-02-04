@@ -6,14 +6,11 @@
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
         body { 
-            background-color: #ffcccc; 
+            background-color: #ffcccc; /* Statická jemná ružová farba pozadia */
             text-align: center; 
             font-family: 'Pacifico', cursive; 
             height: 100vh; 
-            overflow: hidden; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden; /* Zakazuje akékoľvek posúvanie */
             margin: 0;
             color: #d63384;
         }
@@ -27,6 +24,12 @@
             width: 90%;
             border: 2px solid rgba(255, 105, 180, 0.6); 
             animation: pulseShadow 3s infinite alternate; 
+            
+            /* Fixuje poziciu kontajnera presne na stred */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         
         @keyframes pulseShadow {
@@ -34,7 +37,7 @@
             to { box-shadow: 0 0 60px rgba(255, 105, 180, 1), 0 0 30px rgba(255, 105, 180, 0.8) inset; } 
         }
 
-        #main-content, .heart, #final-message { display: none; }
+        #main-content, #final-message { display: none; }
         
         h1 { font-size: 2.8rem; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); margin-bottom: 20px; }
         h2 { font-size: 1.6rem; margin-top: 20px; } 
@@ -58,18 +61,11 @@
         #yesBtn { background-color: #ff4d4d; color: white; border: none; }
         #noBtn { background-color: #ccc; cursor: not-allowed; border: none; } 
         
-        /* Animácia žiarenia tlačidla ÁNO! */
         @keyframes glowBtn {
             from { box-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d; }
             to { box-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff4d4d, 0 0 60px #ff4d4d; }
         }
         #yesBtn { animation: glowBtn 1.5s infinite alternate; }
-
-        /* Animácia padajúcich srdiečok */
-        @keyframes fall { 
-            0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0; } /* Start s nulovou priehľadnosťou */
-            100% { transform: translateY(110vh) scale(1.5) rotate(720deg); opacity: 0.9; } /* Koniec s vysokou priehľadnosťou */
-        }
         
         .glowing-number {
             color: #ff4d4d;
@@ -129,8 +125,7 @@
             if (input === correctPassword) {
                 document.getElementById('password-prompt').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                // Srdiečka sa spustia až po zadaní hesla
-                setInterval(createHeart, 80); 
+                // Odstránené volanie createHeart, srdiečka už nepadajú
             } else {
                 alert('Nesprávne heslo. Skús to znova.');
             }
@@ -140,19 +135,6 @@
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('final-message').style.display = 'block';
             document.querySelector('#final-message').style.animation = 'pulseShadow 3s infinite alternate';
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw'; 
-            heart.style.fontSize = Math.random() * 20 + 30 + 'px'; 
-            heart.style.animationDuration = Math.random() * 4 + 6 + 's'; 
-            heart.style.animationName = 'fall'; 
-            document.body.appendChild(heart);
-            heart.style.display = 'block'; 
-            setTimeout(() => heart.remove(), (parseFloat(heart.style.animationDuration) || 10) * 1000);
         }
     </script>
 </body>
