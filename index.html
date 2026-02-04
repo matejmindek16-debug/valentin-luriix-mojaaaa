@@ -18,11 +18,10 @@
             color: #d63384;
         }
 
-        .container, #password-prompt {
+        .container {
             background-color: rgba(255, 255, 255, 0.7); /* Vysoko priehľadné biele pozadie */
             padding: 40px;
             border-radius: 25px;
-            /* Jemná svetelná animácia tieňa */
             box-shadow: 0 0 40px rgba(255, 105, 180, 0.7), 0 0 20px rgba(255, 105, 180, 0.5) inset;
             max-width: 450px;
             width: 90%;
@@ -35,15 +34,19 @@
             to { box-shadow: 0 0 60px rgba(255, 105, 180, 1), 0 0 30px rgba(255, 105, 180, 0.8) inset; } /* Ešte silnejší glow */
         }
 
+        /* Skryje sa, kým sa nezadá heslo */
+        #main-content { display: none; }
+        
+        /* Skryje sa, kým sa neklikne na ÁNO! */
+        #final-message { display: none; }
 
-        .container, .heart { display: none; }
+
         h1 { font-size: 2.8rem; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); margin-bottom: 20px; }
         h2 { font-size: 1.6rem; margin-top: 20px; } 
         .main-img { 
             width: 100%; max-width: 280px; 
             border-radius: 50%; 
-            box-shadow: 0 0 30px rgba(0,0,0,0.3); /* Viac tieňa */
-            /* Odstránené pohybové transformácie */
+            box-shadow: 0 0 30px rgba(0,0,0,0.2); 
         }
 
         .buttons { margin-top: 30px; display: flex; justify-content: space-around; }
@@ -53,18 +56,18 @@
             font-size: 1.2rem; 
             border-radius: 50px; 
             transition: all 0.3s ease; 
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Viac tieňa */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
             opacity: 0.9;
         }
-        button:hover { opacity: 1; transform: none; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); } /* Viac tieňa pri hoveri */
+        button:hover { opacity: 1; transform: none; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); } 
         #yesBtn { background-color: #ff4d4d; color: white; border: none; }
         #noBtn { background-color: #ccc; cursor: not-allowed; border: none; } 
         
         .glowing-number {
             color: #ff4d4d;
             text-decoration: none;
-            text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff4d4d, 0 0 60px #ff4d4d; /* Ešte viac žiary */
-            animation: glow 1.5s ease-in-out infinite alternate; /* Žiara textu ostáva */
+            text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff4d4d, 0 0 60px #ff4d4d; 
+            animation: glow 1.5s ease-in-out infinite alternate; 
             display: block; 
         }
 
@@ -83,13 +86,13 @@
             cursor: pointer; 
             border-radius: 50px;
             margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.6); /* Viac tieňa */
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.6); 
         }
 
     </style>
 </head>
 <body>
-    <div id="password-prompt">
+    <div class="container" id="password-prompt">
         <h2>Prosím, zadaj heslo:</h2>
         <input type="password" id="password-input" placeholder="Heslo">
         <button id="password-button" onclick="checkPassword()">Odomknúť</button>
@@ -103,6 +106,14 @@
             <button id="noBtn" disabled>NIE</button>
         </div>
     </div>
+    
+    <!-- Nový kontajner pre záverečnú správu, pôvodne skrytý -->
+    <div class="container" id="final-message">
+        <h1>Jupiii! ❤️🔥🐮🦖</h1>
+        <h2>Zavolaj mi na číslo: <a href="tel:0949088844" class="glowing-number">0949 088 844</a></h2>
+        <p style="font-size:3rem;">🌹🌹🌹⚜️</p>
+    </div>
+
 
     <script>
         function checkPassword() {
@@ -117,12 +128,9 @@
         }
 
         function celebrate() {
-            const displayPhoneNumber = '0949 088 844'; 
-            const callLinkNumber = '0949088844';
-            // Pridaný dinosaurus emoji 🦖 a ľalie ⚜️ do záverečnej správy
-            document.body.innerHTML = '<div class="container" id="final-message"><h1>Jupiii! ❤️🔥🐮🦖</h1><h2>Zavolaj mi na číslo: <a href="tel:' + callLinkNumber + '" class="glowing-number">' + displayPhoneNumber + '</a></h2><p style="font-size:3rem;">🌹🌹🌹⚜️</p></div>';
-            // Zabezpečí, že aj konečná správa má efekt žiarenia
-            document.querySelector('.container').style.animation = 'pulseShadow 3s infinite alternate';
+            // Skryje hlavný obsah a zobrazí záverečnú správu
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('final-message').style.display = 'block';
         }
     </script>
 </body>
