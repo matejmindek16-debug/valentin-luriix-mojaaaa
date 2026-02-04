@@ -3,35 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Budeš môj Valentín?</title>
-    <!-- Import romantického písma z Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
+        /* Animované pozadie: jemné pulzovanie farieb */
+        @keyframes backgroundFlow {
+            0% { background: linear-gradient(to bottom right, #ffcccc 0%, #ff99cc 100%); }
+            50% { background: linear-gradient(to top left, #ff99cc 0%, #ffcccc 100%); }
+            100% { background: linear-gradient(to bottom right, #ffcccc 0%, #ff99cc 100%); }
+        }
+
         body { 
-            background-color: #ffe6e6; 
+            animation: backgroundFlow 20s ease infinite; /* Dlhšia, jemná animácia */
             text-align: center; 
             font-family: 'Pacifico', cursive; 
             overflow: hidden; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #d63384;
         }
+
+        .container, #password-prompt {
+            background-color: rgba(255, 255, 255, 0.95); /* Menej priehľadné, elegantnejšie */
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); /* Výraznejší tieň */
+            max-width: 450px;
+            width: 90%;
+            border: 2px solid #ff66b2; /* Jemný ružový rámik */
+        }
+
         .container, .heart { display: none; }
-        h1 { color: #d63384; font-size: 3rem; }
-        h2 { font-size: 1.8rem; } 
-        .main-img { width: 300px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .buttons { margin-top: 30px; position: relative; height: 100px; }
-        button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border-radius: 10px; border: none; transition: 0.3s; }
-        #yesBtn { background-color: #ff4d4d; color: white; }
-        #noBtn { background-color: #ccc; cursor: not-allowed; position: static; } 
+        h1 { font-size: 2.8rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 20px; }
+        h2 { font-size: 1.6rem; margin-top: 20px; } 
+        .main-img { 
+            width: 100%; max-width: 280px; 
+            border-radius: 50%; /* Okrúhly obrázok */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); 
+            transition: transform 0.5s ease-in-out;
+            cursor: pointer;
+        }
+        .main-img:hover { transform: scale(1.1) rotate(5deg); } /* Efekt pri prechode myšou */
+
+        .buttons { margin-top: 30px; display: flex; justify-content: space-around; }
         
-        /* Nová animácia: padanie zhora nadol */
+        button { 
+            padding: 15px 30px; 
+            font-size: 1.2rem; 
+            border-radius: 50px; 
+            transition: all 0.3s ease; /* Hladšie prechody */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        #yesBtn { background-color: #ff4d4d; color: white; border: none; }
+        #yesBtn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255, 77, 77, 0.5); }
+        #noBtn { background-color: #ccc; cursor: not-allowed; border: none; } 
+        
+        /* Animácia padajúcich srdiečok (z predchádzajúcej správy) */
         @keyframes fall { 
-            0% { transform: translateY(-10vh) scale(1); opacity: 0.9; } 
-            100% { transform: translateY(110vh) scale(1.5); opacity: 0; } 
+            0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0.9; } 
+            100% { transform: translateY(110vh) scale(1.5) rotate(720deg); opacity: 0; } 
         }
         
         .glowing-number {
             color: #ff4d4d;
             text-decoration: none;
-            text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d, 0 0 30px #ff4d4d;
+            text-shadow: 0 0 15px #ff4d4d, 0 0 30px #ff4d4d, 0 0 45px #ff4d4d; /* Výraznejšie žiarenie */
             animation: glow 1.5s ease-in-out infinite alternate;
+            display: block; /* Aby to bolo na vlastnom riadku */
         }
 
         @keyframes glow {
@@ -39,9 +79,18 @@
           to { text-shadow: 0 0 20px #ff4d4d, 0 0 30px #ff4d4d, 0 0 40px #ff4d4d; }
         }
 
-        #password-prompt { padding: 50px; margin-top: 100px; }
-        #password-input { padding: 10px; font-size: 1rem; }
-        #password-button { padding: 10px 20px; font-size: 1rem; background-color: #d63384; color: white; border: none; cursor: pointer; }
+        #password-input { padding: 12px; font-size: 1.1rem; border-radius: 10px; border: 2px solid #ff66b2; width: 80%; }
+        #password-button { 
+            padding: 12px 25px; 
+            font-size: 1.1rem; 
+            background-color: #d63384; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 50px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4);
+        }
 
     </style>
 </head>
@@ -69,7 +118,7 @@
                 document.getElementById('password-prompt').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
                 document.body.style.overflow = 'auto'; 
-                setInterval(createHeart, 100); // Generujeme srdiečka častejšie
+                setInterval(createHeart, 80); /* Ešte častejšie srdiečka */
             } else {
                 alert('Nesprávne heslo. Skús to znova.');
             }
@@ -78,20 +127,17 @@
         function celebrate() {
             const displayPhoneNumber = '0949 088 844'; 
             const callLinkNumber = '0949088844';
-            document.body.innerHTML = '<h1>Jupiii! ❤️🔥🐮</h1><h2>Zavolaj mi na číslo: <a href="tel:' + callLinkNumber + '" class="glowing-number">' + displayPhoneNumber + '</a></h2><p style="font-size:50px;">🌹🌹🌹</p>';
+            document.body.innerHTML = '<div class="container" id="final-message"><h1>Jupiii! ❤️🔥🐮</h1><h2>Zavolaj mi na číslo: <a href="tel:' + callLinkNumber + '" class="glowing-number">' + displayPhoneNumber + '</a></h2><p style="font-size:3rem;">🌹🌹🌹</p></div>';
         }
 
-        // Upravená funkcia na vytváranie srdiečok, ktoré padajú po celej šírke
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '❤️';
-            // Náhodná štartovacia pozícia po celej šírke obrazovky
             heart.style.left = Math.random() * 100 + 'vw'; 
-            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-            heart.style.animationDuration = Math.random() * 5 + 5 + 's'; // Náhodná rýchlosť padania
-            heart.style.animationName = 'fall'; // Použijeme novú animáciu 'fall'
-
+            heart.style.fontSize = Math.random() * 20 + 30 + 'px'; /* Väčšie srdiečka */
+            heart.style.animationDuration = Math.random() * 4 + 6 + 's'; /* Pomalšie padanie */
+            heart.style.animationName = 'fall'; 
             document.body.appendChild(heart);
             heart.style.display = 'block'; 
             setTimeout(() => heart.remove(), (parseFloat(heart.style.animationDuration) || 10) * 1000);
