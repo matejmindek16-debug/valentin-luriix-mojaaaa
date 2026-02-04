@@ -19,26 +19,32 @@
         }
 
         .container, #password-prompt {
-            background-color: rgba(255, 255, 255, 0.95); /* Polopriehľadné biele pozadie */
+            background-color: rgba(255, 255, 255, 0.7); /* Vysoko priehľadné biele pozadie */
             padding: 40px;
             border-radius: 25px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); 
+            /* Jemná svetelná animácia tieňa */
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.7), 0 0 20px rgba(255, 105, 180, 0.5) inset;
             max-width: 450px;
             width: 90%;
-            border: 2px solid #ff66b2; 
+            border: 2px solid rgba(255, 105, 180, 0.6); 
+            animation: pulseShadow 3s infinite alternate; /* Rýchlejšie pulzovanie */
+        }
+        
+        @keyframes pulseShadow {
+            from { box-shadow: 0 0 40px rgba(255, 105, 180, 0.7), 0 0 20px rgba(255, 105, 180, 0.5) inset; }
+            to { box-shadow: 0 0 60px rgba(255, 105, 180, 1), 0 0 30px rgba(255, 105, 180, 0.8) inset; } /* Ešte silnejší glow */
         }
 
+
         .container, .heart { display: none; }
-        h1 { font-size: 2.8rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 20px; }
+        h1 { font-size: 2.8rem; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); margin-bottom: 20px; }
         h2 { font-size: 1.6rem; margin-top: 20px; } 
         .main-img { 
             width: 100%; max-width: 280px; 
             border-radius: 50%; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); 
-            transition: transform 0.5s ease-in-out;
-            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3); /* Viac tieňa */
+            /* Odstránené pohybové transformácie */
         }
-        .main-img:hover { transform: scale(1.1) rotate(5deg); } 
 
         .buttons { margin-top: 30px; display: flex; justify-content: space-around; }
         
@@ -47,29 +53,24 @@
             font-size: 1.2rem; 
             border-radius: 50px; 
             transition: all 0.3s ease; 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Viac tieňa */
+            opacity: 0.9;
         }
+        button:hover { opacity: 1; transform: none; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); } /* Viac tieňa pri hoveri */
         #yesBtn { background-color: #ff4d4d; color: white; border: none; }
-        #yesBtn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255, 77, 77, 0.5); }
         #noBtn { background-color: #ccc; cursor: not-allowed; border: none; } 
-        
-        /* Animácia padajúcich srdiečok (jediné pohyby) */
-        @keyframes fall { 
-            0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0.9; } 
-            100% { transform: translateY(110vh) scale(1.5) rotate(720deg); opacity: 0; } 
-        }
         
         .glowing-number {
             color: #ff4d4d;
             text-decoration: none;
-            text-shadow: 0 0 15px #ff4d4d, 0 0 30px #ff4d4d, 0 0 45px #ff4d4d; 
-            animation: glow 1.5s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff4d4d, 0 0 60px #ff4d4d; /* Ešte viac žiary */
+            animation: glow 1.5s ease-in-out infinite alternate; /* Žiara textu ostáva */
             display: block; 
         }
 
         @keyframes glow {
-          from { text-shadow: 0 0 10px #ff4d4d; }
-          to { text-shadow: 0 0 20px #ff4d4d, 0 0 30px #ff4d4d, 0 0 40px #ff4d4d; }
+          from { text-shadow: 0 0 15px #ff4d4d; }
+          to { text-shadow: 0 0 30px #ff4d4d, 0 0 45px #ff4d4d, 0 0 60px #ff4d4d; }
         }
 
         #password-input { padding: 12px; font-size: 1.1rem; border-radius: 10px; border: 2px solid #ff66b2; width: 80%; }
@@ -82,7 +83,7 @@
             cursor: pointer; 
             border-radius: 50px;
             margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4);
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.6); /* Viac tieňa */
         }
 
     </style>
@@ -95,7 +96,7 @@
     </div>
 
     <div class="container" id="main-content">
-        <h1>Budeš môj Valentín? 💖</h1>
+        <h1>Budeš môj Valentín? 💖⚜️</h1>
         <img src="kravicka.png" class="main-img" alt="Kravička s horiacim srdcom">
         <div class="buttons">
             <button id="yesBtn" onclick="celebrate()">ÁNO!</button>
@@ -110,7 +111,6 @@
             if (input === correctPassword) {
                 document.getElementById('password-prompt').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                setInterval(createHeart, 80); 
             } else {
                 alert('Nesprávne heslo. Skús to znova.');
             }
@@ -119,20 +119,10 @@
         function celebrate() {
             const displayPhoneNumber = '0949 088 844'; 
             const callLinkNumber = '0949088844';
-            document.body.innerHTML = '<div class="container" id="final-message"><h1>Jupiii! ❤️🔥🐮</h1><h2>Zavolaj mi na číslo: <a href="tel:' + callLinkNumber + '" class="glowing-number">' + displayPhoneNumber + '</a></h2><p style="font-size:3rem;">🌹🌹🌹</p></div>';
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw'; 
-            heart.style.fontSize = Math.random() * 20 + 30 + 'px'; 
-            heart.style.animationDuration = Math.random() * 4 + 6 + 's'; 
-            heart.style.animationName = 'fall'; 
-            document.body.appendChild(heart);
-            heart.style.display = 'block'; 
-            setTimeout(() => heart.remove(), (parseFloat(heart.style.animationDuration) || 10) * 1000);
+            // Pridaný dinosaurus emoji 🦖 a ľalie ⚜️ do záverečnej správy
+            document.body.innerHTML = '<div class="container" id="final-message"><h1>Jupiii! ❤️🔥🐮🦖</h1><h2>Zavolaj mi na číslo: <a href="tel:' + callLinkNumber + '" class="glowing-number">' + displayPhoneNumber + '</a></h2><p style="font-size:3rem;">🌹🌹🌹⚜️</p></div>';
+            // Zabezpečí, že aj konečná správa má efekt žiarenia
+            document.querySelector('.container').style.animation = 'pulseShadow 3s infinite alternate';
         }
     </script>
 </body>
