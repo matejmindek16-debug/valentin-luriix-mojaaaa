@@ -16,11 +16,12 @@
             animation: backgroundFlow 20s ease infinite; /* Dlhšia, jemná animácia */
             text-align: center; 
             font-family: 'Pacifico', cursive; 
+            /* Fixované centrovanie a žiadne posúvanie */
+            height: 100vh; 
             overflow: hidden; 
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
             color: #d63384;
         }
@@ -60,7 +61,7 @@
         #yesBtn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255, 77, 77, 0.5); }
         #noBtn { background-color: #ccc; cursor: not-allowed; border: none; } 
         
-        /* Animácia padajúcich srdiečok (z predchádzajúcej správy) */
+        /* Animácia padajúcich srdiečok */
         @keyframes fall { 
             0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0.9; } 
             100% { transform: translateY(110vh) scale(1.5) rotate(720deg); opacity: 0; } 
@@ -117,8 +118,8 @@
             if (input === correctPassword) {
                 document.getElementById('password-prompt').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                document.body.style.overflow = 'auto'; 
-                setInterval(createHeart, 80); /* Ešte častejšie srdiečka */
+                // Odstránené overflow auto
+                setInterval(createHeart, 80); 
             } else {
                 alert('Nesprávne heslo. Skús to znova.');
             }
@@ -135,8 +136,8 @@
             heart.classList.add('heart');
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw'; 
-            heart.style.fontSize = Math.random() * 20 + 30 + 'px'; /* Väčšie srdiečka */
-            heart.style.animationDuration = Math.random() * 4 + 6 + 's'; /* Pomalšie padanie */
+            heart.style.fontSize = Math.random() * 20 + 30 + 'px'; 
+            heart.style.animationDuration = Math.random() * 4 + 6 + 's'; 
             heart.style.animationName = 'fall'; 
             document.body.appendChild(heart);
             heart.style.display = 'block'; 
