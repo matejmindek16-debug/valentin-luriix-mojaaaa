@@ -5,18 +5,10 @@
     <title>Budeš môj Valentín?</title>
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        /* Animované pozadie: jemné pulzovanie farieb */
-        @keyframes backgroundFlow {
-            0% { background: linear-gradient(to bottom right, #ffcccc 0%, #ff99cc 100%); }
-            50% { background: linear-gradient(to top left, #ff99cc 0%, #ffcccc 100%); }
-            100% { background: linear-gradient(to bottom right, #ffcccc 0%, #ff99cc 100%); }
-        }
-
         body { 
-            animation: backgroundFlow 20s ease infinite; /* Dlhšia, jemná animácia */
+            background-color: #ffcccc; /* Statická jemná ružová farba pozadia */
             text-align: center; 
             font-family: 'Pacifico', cursive; 
-            /* Fixované centrovanie a žiadne posúvanie */
             height: 100vh; 
             overflow: hidden; 
             display: flex;
@@ -27,13 +19,13 @@
         }
 
         .container, #password-prompt {
-            background-color: rgba(255, 255, 255, 0.95); /* Menej priehľadné, elegantnejšie */
+            background-color: rgba(255, 255, 255, 0.95); /* Polopriehľadné biele pozadie */
             padding: 40px;
             border-radius: 25px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); /* Výraznejší tieň */
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); 
             max-width: 450px;
             width: 90%;
-            border: 2px solid #ff66b2; /* Jemný ružový rámik */
+            border: 2px solid #ff66b2; 
         }
 
         .container, .heart { display: none; }
@@ -41,12 +33,12 @@
         h2 { font-size: 1.6rem; margin-top: 20px; } 
         .main-img { 
             width: 100%; max-width: 280px; 
-            border-radius: 50%; /* Okrúhly obrázok */
+            border-radius: 50%; 
             box-shadow: 0 5px 20px rgba(0,0,0,0.3); 
             transition: transform 0.5s ease-in-out;
             cursor: pointer;
         }
-        .main-img:hover { transform: scale(1.1) rotate(5deg); } /* Efekt pri prechode myšou */
+        .main-img:hover { transform: scale(1.1) rotate(5deg); } 
 
         .buttons { margin-top: 30px; display: flex; justify-content: space-around; }
         
@@ -54,14 +46,14 @@
             padding: 15px 30px; 
             font-size: 1.2rem; 
             border-radius: 50px; 
-            transition: all 0.3s ease; /* Hladšie prechody */
+            transition: all 0.3s ease; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         #yesBtn { background-color: #ff4d4d; color: white; border: none; }
         #yesBtn:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255, 77, 77, 0.5); }
         #noBtn { background-color: #ccc; cursor: not-allowed; border: none; } 
         
-        /* Animácia padajúcich srdiečok */
+        /* Animácia padajúcich srdiečok (jediné pohyby) */
         @keyframes fall { 
             0% { transform: translateY(-10vh) scale(1) rotate(0deg); opacity: 0.9; } 
             100% { transform: translateY(110vh) scale(1.5) rotate(720deg); opacity: 0; } 
@@ -70,9 +62,9 @@
         .glowing-number {
             color: #ff4d4d;
             text-decoration: none;
-            text-shadow: 0 0 15px #ff4d4d, 0 0 30px #ff4d4d, 0 0 45px #ff4d4d; /* Výraznejšie žiarenie */
+            text-shadow: 0 0 15px #ff4d4d, 0 0 30px #ff4d4d, 0 0 45px #ff4d4d; 
             animation: glow 1.5s ease-in-out infinite alternate;
-            display: block; /* Aby to bolo na vlastnom riadku */
+            display: block; 
         }
 
         @keyframes glow {
@@ -118,7 +110,6 @@
             if (input === correctPassword) {
                 document.getElementById('password-prompt').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-                // Odstránené overflow auto
                 setInterval(createHeart, 80); 
             } else {
                 alert('Nesprávne heslo. Skús to znova.');
