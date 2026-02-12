@@ -2,76 +2,201 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budeš môj Valentín?</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --pink: #ff4d6d;
-            --pink2: #ff758f;
-        }
-
         body { 
             background: linear-gradient(135deg, #ffd1dc, #ffb6c1, #ffc0cb);
             background-size: 300% 300%;
             animation: bgMove 10s ease infinite;
+            text-align: center; 
             font-family: 'Pacifico', cursive; 
-            height: 100vh; /* späť na klasiku */
+            height: 100vh; 
             overflow: hidden; 
             margin: 0;
             color: #d63384;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
         }
-
         @keyframes bgMove {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         .container {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(10px);
-            padding: 28px 24px 30px;
-            border-radius: 26px;
-            box-shadow: 0 12px 40px rgba(255, 105, 180, 0.45);
-            max-width: 420px;
-            width: 92%;
-            border: 1.5px solid rgba(255, 105, 180, 0.45);
-            animation: fadeIn 0.7s ease;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.6);
+            max-width: 450px;
+            width: 90%;
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            animation: fadeIn 1s ease;
             position: absolute;
         }
-
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
-
         #main-content, #final-message { display: none; }
 
-        h1 { font-size: 2.4rem; margin: 10px 0 12px; }
-        h2 { font-size: 1.3rem; margin: 10px 0; }
+        h1 { font-size: 2.6rem; margin-bottom: 20px; }
 
         .main-img {
-            width: 240px;
-            max-width: 70vw;
+            width: 100%;
+            max-width: 260px;
             border-radius: 50%;
-            box-shadow: 0 0 28px rgba(255, 105, 180, 0.55);
-            margin: 6px auto 8px;
-            display: block;
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
         }
 
-        .buttons {
-            margin-top: 18px;
-            display: flex;
-            gap: 12px;
-        }
-
+        .buttons { margin-top: 30px; display: flex; gap: 15px; }
         button {
             flex: 1;
-            padding: 14px 16px;
-            font-size: 1.1re
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+        }
+        #yesBtn {
+            background: linear-gradient(135deg, #ff4d6d, #ff758f);
+            color: white;
+            animation: glowBtn 1.5s infinite alternate;
+        }
+        #noBtn { background: #ddd; }
+        @keyframes glowBtn {
+            from { box-shadow: 0 0 10px #ff4d6d; }
+            to { box-shadow: 0 0 30px #ff4d6d, 0 0 60px #ff4d6d; }
+        }
+
+        /* konfety */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: fall linear forwards;
+            z-index: 9999;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(1080deg); opacity: 0; }
+        }
+
+        /* WOW text */
+        .wow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 4rem;
+            color: #ff2d55;
+            text-shadow: 0 0 20px #ff2d55, 0 0 60px #ff2d55;
+            animation: wowPop 1.2s ease forwards;
+            z-index: 99999;
+            pointer-events: none;
+        }
+        @keyframes wowPop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            60% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+
+        /* JUPIII + srdce */
+        .jupi-wrap { position: relative; display: inline-block; }
+        .heart-bg {
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle at center, rgba(255,77,109,0.6), transparent 70%);
+            filter: blur(20px);
+            animation: heartPulse 1.5s infinite alternate;
+            z-index: -1;
+            border-radius: 50%;
+        }
+        @keyframes heartPulse {
+            from { transform: scale(0.9); opacity: 0.6; }
+            to { transform: scale(1.1); opacity: 1; }
+        }
+        .jupi {
+            animation: jupiBounce 1.2s ease infinite alternate, jupiGlow 1.5s infinite alternate;
+        }
+        @keyframes jupiBounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-8px); }
+        }
+        @keyframes jupiGlow {
+            from { text-shadow: 0 0 10px #ff4d6d; }
+            to { text-shadow: 0 0 30px #ff4d6d, 0 0 60px #ff4d6d; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="password-prompt">
+    <h2>Prosím, zadaj heslo:</h2>
+    <input type="password" id="password-input" placeholder="Heslo" onkeydown="if(event.key==='Enter') checkPassword()">
+    <br>
+    <button id="password-button" onclick="checkPassword()">Odomknúť</button>
+</div>
+
+<div class="container" id="main-content">
+    <h1>Budeš môj Valentín? 💖⚜️</h1>
+    <img src="kravicka.png" class="main-img">
+    <div class="buttons">
+        <button id="yesBtn" onclick="celebrate()">ÁNO!</button>
+        <button id="noBtn" disabled>NIE</button>
+    </div>
+</div>
+
+<div class="container" id="final-message">
+    <div class="jupi-wrap">
+        <div class="heart-bg"></div>
+        <h1 class="jupi">Jupiii! ❤️🔥🐮🦖</h1>
+    </div>
+    <h2>Zavolaj mi: <a href="tel:0949088844">0949 088 844</a></h2>
+</div>
+
+<script>
+function checkPassword() {
+    const input = document.getElementById('password-input').value;
+    const correctPassword = 'lubimta';
+    if (input === correctPassword) {
+        document.getElementById('password-prompt').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    } else {
+        alert('Nesprávne heslo 😅');
+    }
+}
+
+function celebrate() {
+    document.getElementById('main-content').style.display = 'none';
+    document.getElementById('final-message').style.display = 'block';
+    launchConfetti();
+    showWow();
+}
+
+function launchConfetti() {
+    for (let i = 0; i < 160; i++) {
+        const conf = document.createElement('div');
+        conf.classList.add('confetti');
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        conf.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 5000);
+    }
+}
+
+function showWow() {
+    const wow = document.createElement('div');
+    wow.className = 'wow';
+    wow.innerText = 'WAAAU!';
+    document.body.appendChild(wow);
+    setTimeout(() => wow.remove(), 1200);
+}
+</script>
+
+</body>
+</html>
