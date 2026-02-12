@@ -2,133 +2,179 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Budeš môj Valentín?</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --pink: #ff4d6d;
+            --pink2: #ff758f;
+        }
+
         body { 
             background: linear-gradient(135deg, #ffd1dc, #ffb6c1, #ffc0cb);
             background-size: 300% 300%;
             animation: bgMove 10s ease infinite;
-            text-align: center; 
             font-family: 'Pacifico', cursive; 
-            height: 100vh; 
+            height: 100svh;
             overflow: hidden; 
             margin: 0;
             color: #d63384;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            place-items: center;
+            -webkit-tap-highlight-color: transparent;
         }
+
         @keyframes bgMove {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
         .container {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 0 50px rgba(255, 105, 180, 0.6);
-            max-width: 450px;
-            width: 90%;
-            border: 2px solid rgba(255, 105, 180, 0.5);
-            animation: fadeIn 1s ease;
-            position: absolute;
+            padding: 24px 20px 28px;
+            border-radius: 26px;
+            box-shadow: 0 12px 40px rgba(255, 105, 180, 0.45);
+            max-width: 420px;
+            width: min(92vw, 420px);
+            border: 1.5px solid rgba(255, 105, 180, 0.45);
+            animation: fadeIn 0.7s ease;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(10px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
+
         #main-content, #final-message { display: none; }
 
-        h1 { font-size: 2.6rem; margin-bottom: 20px; }
+        h1 { font-size: clamp(2rem, 7vw, 2.5rem); margin: 10px 0 12px; }
+        h2 { font-size: clamp(1.2rem, 4.5vw, 1.4rem); margin: 10px 0; }
 
         .main-img {
-            width: 100%;
-            max-width: 260px;
+            width: min(72vw, 240px);
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
             border-radius: 50%;
-            box-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
+            box-shadow: 0 0 28px rgba(255, 105, 180, 0.55);
+            margin: 6px auto 8px;
+            display: block;
         }
 
-        .buttons { margin-top: 30px; display: flex; gap: 15px; }
+        .buttons {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
         button {
-            flex: 1;
-            padding: 15px 20px;
-            font-size: 1.2rem;
-            border-radius: 50px;
+            padding: 14px 16px;
+            font-size: 1.1rem;
+            border-radius: 999px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+            touch-action: manipulation;
         }
+
         #yesBtn {
-            background: linear-gradient(135deg, #ff4d6d, #ff758f);
+            background: linear-gradient(135deg, var(--pink), var(--pink2));
             color: white;
             animation: glowBtn 1.5s infinite alternate;
         }
+
         #noBtn { background: #ddd; }
+
         @keyframes glowBtn {
-            from { box-shadow: 0 0 10px #ff4d6d; }
-            to { box-shadow: 0 0 30px #ff4d6d, 0 0 60px #ff4d6d; }
+            from { box-shadow: 0 0 10px var(--pink); }
+            to { box-shadow: 0 0 24px var(--pink), 0 0 48px var(--pink2); }
         }
 
-        /* konfety */
+        #password-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--pink);
+            outline: none;
+        }
+
+        #password-button {
+            margin-top: 12px;
+            width: 100%;
+            padding: 12px 18px;
+            font-size: 1.05rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #d63384, var(--pink));
+            color: white;
+            border: none;
+            box-shadow: 0 8px 22px rgba(214, 51, 132, 0.55);
+        }
+
         .confetti {
             position: fixed;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             top: -10px;
             animation: fall linear forwards;
             z-index: 9999;
         }
+
         @keyframes fall {
-            to { transform: translateY(110vh) rotate(1080deg); opacity: 0; }
+            to { transform: translateY(110svh) rotate(1080deg); opacity: 0; }
         }
 
-        /* WOW text */
         .wow {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            font-size: 4rem;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: clamp(3rem, 12vw, 4rem);
             color: #ff2d55;
             text-shadow: 0 0 20px #ff2d55, 0 0 60px #ff2d55;
             animation: wowPop 1.2s ease forwards;
             z-index: 99999;
             pointer-events: none;
         }
+
         @keyframes wowPop {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            60% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+            0% { transform: scale(0.7); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
         }
 
-        /* JUPIII + srdce */
         .jupi-wrap { position: relative; display: inline-block; }
         .heart-bg {
             position: absolute;
-            inset: -20px;
-            background: radial-gradient(circle at center, rgba(255,77,109,0.6), transparent 70%);
-            filter: blur(20px);
+            inset: -16px;
+            background: radial-gradient(circle at center, rgba(255,77,109,0.55), transparent 70%);
+            filter: blur(18px);
             animation: heartPulse 1.5s infinite alternate;
             z-index: -1;
             border-radius: 50%;
         }
+
         @keyframes heartPulse {
             from { transform: scale(0.9); opacity: 0.6; }
             to { transform: scale(1.1); opacity: 1; }
         }
+
         .jupi {
-            animation: jupiBounce 1.2s ease infinite alternate, jupiGlow 1.5s infinite alternate;
+            animation: jupiBounce 1.1s ease infinite alternate, jupiGlow 1.4s infinite alternate;
         }
+
         @keyframes jupiBounce {
             from { transform: translateY(0); }
-            to { transform: translateY(-8px); }
+            to { transform: translateY(-6px); }
         }
+
         @keyframes jupiGlow {
-            from { text-shadow: 0 0 10px #ff4d6d; }
-            to { text-shadow: 0 0 30px #ff4d6d, 0 0 60px #ff4d6d; }
+            from { text-shadow: 0 0 10px var(--pink); }
+            to { text-shadow: 0 0 26px var(--pink), 0 0 52px var(--pink2); }
         }
     </style>
 </head>
@@ -136,14 +182,13 @@
 
 <div class="container" id="password-prompt">
     <h2>Prosím, zadaj heslo:</h2>
-    <input type="password" id="password-input" placeholder="Heslo" onkeydown="if(event.key==='Enter') checkPassword()">
-    <br>
+    <input type="password" id="password-input" placeholder="Heslo" inputmode="text" onkeydown="if(event.key==='Enter') checkPassword()">
     <button id="password-button" onclick="checkPassword()">Odomknúť</button>
 </div>
 
 <div class="container" id="main-content">
     <h1>Budeš môj Valentín? 💖⚜️</h1>
-    <img src="kravicka.png" class="main-img">
+    <img src="kravicka.png" class="main-img" alt="Kravička">
     <div class="buttons">
         <button id="yesBtn" onclick="celebrate()">ÁNO!</button>
         <button id="noBtn" disabled>NIE</button>
@@ -160,7 +205,7 @@
 
 <script>
 function checkPassword() {
-    const input = document.getElementById('password-input').value;
+    const input = document.getElementById('password-input').value.trim();
     const correctPassword = 'lubimta';
     if (input === correctPassword) {
         document.getElementById('password-prompt').style.display = 'none';
@@ -175,28 +220,12 @@ function celebrate() {
     document.getElementById('final-message').style.display = 'block';
     launchConfetti();
     showWow();
+    if (navigator.vibrate) navigator.vibrate(60);
 }
 
 function launchConfetti() {
-    for (let i = 0; i < 160; i++) {
+    const count = Math.min(160, Math.floor(window.innerWidth / 3));
+    for (let i = 0; i < count; i++) {
         const conf = document.createElement('div');
-        conf.classList.add('confetti');
-        conf.style.left = Math.random() * 100 + 'vw';
-        conf.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        conf.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
-        document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 5000);
-    }
-}
-
-function showWow() {
-    const wow = document.createElement('div');
-    wow.className = 'wow';
-    wow.innerText = 'WAAAU!';
-    document.body.appendChild(wow);
-    setTimeout(() => wow.remove(), 1200);
-}
-</script>
-
-</body>
-</html>
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * 100 + 'v*
